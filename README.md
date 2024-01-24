@@ -1,6 +1,8 @@
 # Bonfire.Label
 
-Bonfire.Label is a powerful and flexible extension designed to enhance content moderation and improve online safety. Inspired by the design principles outlined by Prosocial Design (specifically the [Label Misleading Content & Add Links to Reliable Related Content](https://www.prosocialdesign.org/library/label-misleading-content-add-links-to-reliable-related-content) pattern), this library enables the addition of custom labels and descriptions to user-generated posts. This feature aids in identifying and marking potentially misleading, harmful, or unsafe content, while also providing users with links to reliable and related information.
+Bonfire.Label is a powerful and flexible extension designed to enhance content moderation and improve online safety. Inspired by the design principles outlined by Prosocial Design (specifically the [Label Misleading Content & Add Links to Reliable Related Content](https://www.prosocialdesign.org/library/label-misleading-content-add-links-to-reliable-related-content) pattern), this library enables the addition of custom labels and descriptions to user-generated posts. 
+
+This feature aids in identifying and marking potentially misleading, harmful, or unsafe content, while also providing users with links to reliable and related information.
 
 
 ## Features
