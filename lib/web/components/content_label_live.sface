@@ -1,0 +1,78 @@
+<li :if={current_user_id(@__context__) && can_label?(@__context__, @object, @object_boundary)}>
+  <OpenModalLive id={Text.random_string()} title_text={l("Label this post")} no_actions>
+    <div x-data="{ selectedLabel: 'latest', links: [] }" class="py-2">
+      <div role="alert" class="alert alert-info">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          class="stroke-current shrink-0 w-6 h-6"
+        ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          /></svg>
+        <span><p>{l(
+              "The label and description will be visible to all the users, be precise and ensure to add only relevant information."
+            )}</p></span>
+      </div>
+
+      <form class="mt-4">
+        <div class="flex items-center gap-2">
+          <span :class="{
+                  'min-w-[48px] w-[48px] h-[48px] rounded': true,
+                  'bg-info': selectedLabel === 'latest',
+                  'bg-warning': selectedLabel === 'informed',
+                  'bg-error': selectedLabel === 'misleading'
+              }" />
+          <select x-model="selectedLabel" class="select select-bordered w-full max-w-full">
+            <option value="latest">{l("Get the latest")}</option>
+            <option value="informed">{l("Stay informed")}</option>
+            <option value="misleading">{l("Misleading")}</option>
+          </select>
+        </div>
+        <label class="form-control mt-2">
+          <div class="label"><span class="label-text">{l("Describe your reasons")}</span></div>
+          <textarea class="textarea textarea-bordered h-24" placeholder="Bio" />
+        </label>
+
+        <div class="flex text-sm pt-3 mb-2 justify-between items-center gap-2">
+          <div class="flex-1">{l("Add a link (up to 3)")}</div>
+          <button
+            x-show="links.length < 3"
+            type="button"
+            @click="links.length < 3 && links.push('')"
+            class="btn btn-sm btn-outline border-base-content/30 btn-circle"
+          >
+            +
+          </button>
+        </div>
+        <template x-for="(link, index) in links" :key="index">
+          <label class="form-control">
+            <div class="label flex px-0 gap-2 py-1 items-center">
+              <input
+                class="input h-[2.5rem] input-bordered flex-1 w-full"
+                placeholder="https://..."
+                x-model="links[index]"
+              />
+              <button type="button" @click="links.splice(index, 1)" class="btn btn-ghost btn-circle">
+                <#Icon iconify="ph:trash-fill" class="w-5 h-5" />
+              </button>
+            </div>
+          </label>
+        </template>
+        <button type="action" class="btn mt-2 btn-primary rounded-full w-full">{l("Publish")}</button>
+      </form>
+    </div>
+
+    <:open_btn>
+      <div role="label" title={l("Label this post")} class="flex items-center gap-2">
+        <#Icon iconify="material-symbols-light:label" class="w-4 h-4 shrink-0 text-base-content/70" />
+        <span class="truncate ellipsis text-sm text-base-content/70">
+          {l("Label this post")}
+        </span>
+      </div>
+    </:open_btn>
+  </OpenModalLive>
+</li>

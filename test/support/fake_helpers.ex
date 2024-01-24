@@ -1,12 +1,12 @@
-defmodule Bonfire.BonfireLabel.Test.FakeHelpers do
+defmodule Bonfire.Label.Test.FakeHelpers do
   alias Bonfire.Data.Identity.Account
-  alias Bonfire.BonfireLabel.Fake
-  alias Bonfire.BonfireLabel.Accounts
-  alias Bonfire.BonfireLabel.Users
+  alias Bonfire.Label.Fake
+  alias Bonfire.Label.Accounts
+  alias Bonfire.Label.Users
 
   import ExUnit.Assertions
 
-  import Bonfire.BonfireLabel.Integration
+  import Bonfire.Label.Integration
 
-  import Bonfire.BonfireLabel.Fake
+  import Bonfire.Label.Fake
 end

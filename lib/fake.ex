@@ -1,2 +1,2 @@
-defmodule Bonfire.BonfireLabel.Fake do
+defmodule Bonfire.Label.Fake do
 end

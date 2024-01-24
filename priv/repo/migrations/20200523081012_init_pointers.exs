@@ -1,4 +1,4 @@
-defmodule Bonfire.BonfireLabel.Repo.Migrations.InitPointers  do
+defmodule Bonfire.Label.Repo.Migrations.InitPointers  do
   @moduledoc false
   use Ecto.Migration
   import Needle.Migration

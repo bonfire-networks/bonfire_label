@@ -1,4 +1,4 @@
-defmodule Bonfire.BonfireLabel.ConnCase do
+defmodule Bonfire.Label.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -26,14 +26,14 @@ defmodule Bonfire.BonfireLabel.ConnCase do
       import Bonfire.UI.Common.Testing.Helpers
 
       import Phoenix.LiveViewTest
-      # import Bonfire.BonfireLabel.ConnCase, async: true
+      # import Bonfire.Label.ConnCase, async: true
 
-      import Bonfire.BonfireLabel.Test.ConnHelpers
-      import Bonfire.BonfireLabel.Test.FakeHelpers
+      import Bonfire.Label.Test.ConnHelpers
+      import Bonfire.Label.Test.FakeHelpers
 
-      alias Bonfire.BonfireLabel.Fake
-      import Bonfire.BonfireLabel.Fake
-      # alias Bonfire.BonfireLabel.Web.Router.Helpers, as: Routes
+      alias Bonfire.Label.Fake
+      import Bonfire.Label.Fake
+      # alias Bonfire.Label.Web.Router.Helpers, as: Routes
 
       # The default endpoint for testing
       @endpoint Application.compile_env!(:bonfire, :endpoint_module)
@@ -41,7 +41,7 @@ defmodule Bonfire.BonfireLabel.ConnCase do
   end
 
   setup tags do
-    import Bonfire.BonfireLabel.Integration
+    import Bonfire.Label.Integration
 
     Bonfire.Common.Test.Interactive.setup_test_repo(tags)
 

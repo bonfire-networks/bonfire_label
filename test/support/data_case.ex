@@ -1,4 +1,4 @@
-defmodule Bonfire.BonfireLabel.DataCase do
+defmodule Bonfire.Label.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -10,19 +10,19 @@ defmodule Bonfire.BonfireLabel.DataCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use Bonfire.BonfireLabel.DataCase, async: true`, although
+  by setting `use Bonfire.Label.DataCase, async: true`, although
   this option is not recommended for other databases.
   """
 
   use ExUnit.CaseTemplate
-  import Bonfire.BonfireLabel.Integration
+  import Bonfire.Label.Integration
 
   using do
     quote do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      # import Bonfire.BonfireLabel.DataCase
+      # import Bonfire.Label.DataCase
     end
   end
 

@@ -1,3 +1,3 @@
 import Config
 
-Bonfire.BonfireLabel.RuntimeConfig.config()
+Bonfire.Label.RuntimeConfig.config()

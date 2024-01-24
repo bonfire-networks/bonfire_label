@@ -1,4 +1,4 @@
-# Bonfire.BonfireLabel
+# Bonfire.Label
 
 A template for creating custom extensions for [Bonfire](https://bonfire.cafe/)
 
@@ -6,13 +6,13 @@ A template for creating custom extensions for [Bonfire](https://bonfire.cafe/)
 - Clone the repository on your `/extensions` folder
 ```
 cd extensions
-git clone https://github.com/bonfire-networks/bonfire_bonfire_label.git {your-extension-name-here}
+git clone https://github.com/bonfire-networks/bonfire_label.git {your-extension-name-here}
 cd {your-extension-name-here} 
 ```
 - Rename all the modules names to match your extension name:
-    - Find & replace Bonfire.BonfireLabel -> Bonfire.YourExtensionName 
-    - Find & replace bonfire_bonfire_label -> bonfire_your_extension_name
-- Rename the `bonfire_bonfire_label.exs` config file to match your extension name `bonfire_your_extension_name.exs`
+    - Find & replace Bonfire.Label -> Bonfire.YourExtensionName 
+    - Find & replace bonfire_label -> bonfire_your_extension_name
+- Rename the `bonfire_label.exs` config file to match your extension name `bonfire_your_extension_name.exs`
 - Add paths to the router if you need it. If you add paths you will need to include the route module on [bonfire-app router module](https://github.com/bonfire-networks/bonfire-app/blob/main/lib/web/router.ex#L51) 
 - Add extension specific Fake functions
 - Add extension specific migrations
@@ -32,7 +32,7 @@ cd {your-extension-name-here}
       git push -u origin main
     ```
 - Add the extension on your bonfire deps.path to include it in your local development
-- Add `use_if_enabled(Bonfire.BonfireLabel.Web.Routes)` in your app's `Router` module
+- Add `use_if_enabled(Bonfire.Label.Web.Routes)` in your app's `Router` module
 - Add the extension on deps.git also (specifying the branch name) to allow others that do not have it in their fork to use it
 - Write a meaningful readme
 - TADA 🔥!
@@ -52,8 +52,8 @@ declare_extension(
       "ExtensionTemplate",
       icon: "bi:app",
       default_nav: [
-        Bonfire.BonfireLabel.Web.HomeLive,
-        Bonfire.BonfireLabel.Web.AboutLive
+        Bonfire.Label.Web.HomeLive,
+        Bonfire.Label.Web.AboutLive
       ])
 ```
 
@@ -64,7 +64,7 @@ declare_extension(
 ```
 declare_nav_link(l("About"),
     page: "About",
-    href: "/bonfire_bonfire_label/about",
+    href: "/bonfire_label/about",
     icon: "typcn:info-large"
   )
 ```

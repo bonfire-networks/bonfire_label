@@ -1,4 +1,4 @@
-defmodule Bonfire.BonfireLabel.RuntimeConfig do
+defmodule Bonfire.Label.RuntimeConfig do
   use Bonfire.Common.Localise
 
   @behaviour Bonfire.Common.ConfigModule
@@ -10,7 +10,7 @@ defmodule Bonfire.BonfireLabel.RuntimeConfig do
   def config do
     import Config
 
-    # config :bonfire_bonfire_label,
+    # config :bonfire_label,
     #   modularity: :disabled
   end
 end

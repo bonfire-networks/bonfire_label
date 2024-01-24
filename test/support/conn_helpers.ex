@@ -1,4 +1,4 @@
-defmodule Bonfire.BonfireLabel.Test.ConnHelpers do
+defmodule Bonfire.Label.Test.ConnHelpers do
   import ExUnit.Assertions
   import Plug.Conn
   import Phoenix.ConnTest

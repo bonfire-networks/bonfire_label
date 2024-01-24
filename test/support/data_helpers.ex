@@ -1,4 +1,4 @@
-defmodule Bonfire.BonfireLabel.DataHelpers do
+defmodule Bonfire.Label.DataHelpers do
   # import ExUnit.Assertions
-  # alias Bonfire.BonfireLabel.Fake
+  # alias Bonfire.Label.Fake
 end
