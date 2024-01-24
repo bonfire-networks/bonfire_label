@@ -1,73 +1,15 @@
 # Bonfire.Label
 
-A template for creating custom extensions for [Bonfire](https://bonfire.cafe/)
-
-## How to use it
-- Clone the repository on your `/extensions` folder
-```
-cd extensions
-git clone https://github.com/bonfire-networks/bonfire_label.git {your-extension-name-here}
-cd {your-extension-name-here} 
-```
-- Rename all the modules names to match your extension name:
-    - Find & replace Bonfire.Label -> Bonfire.YourExtensionName 
-    - Find & replace bonfire_label -> bonfire_your_extension_name
-- Rename the `bonfire_label.exs` config file to match your extension name `bonfire_your_extension_name.exs`
-- Add paths to the router if you need it. If you add paths you will need to include the route module on [bonfire-app router module](https://github.com/bonfire-networks/bonfire-app/blob/main/lib/web/router.ex#L51) 
-- Add extension specific Fake functions
-- Add extension specific migrations
-- Add extension deps to deps.git and/or deps.hex 
-- Delete the bonfire extension template git history and initiate a new .git 
-    ```
-    rm -rf .git
-    git init    
-    ```
-- Create your empty extension repository on your preferred platform
-- Push your local changes
-    ```
-      git add .
-      git commit -m "first commit"
-      git branch -M main
-      git remote add origin {your-remote-repository}
-      git push -u origin main
-    ```
-- Add the extension on your bonfire deps.path to include it in your local development
-- Add `use_if_enabled(Bonfire.Label.Web.Routes)` in your app's `Router` module
-- Add the extension on deps.git also (specifying the branch name) to allow others that do not have it in their fork to use it
-- Write a meaningful readme
-- TADA 🔥!
-
-### Add your navigation
-
-> **Warning**
-> The following pattern is likely to change in the coming period.
-
-Each extension can specify it's own navbar in a quite flexible way, leveraging on 2 macro: `declare_extension` and `declare_nav_link`.
+Bonfire.Label is a powerful and flexible extension designed to enhance content moderation and improve online safety. Inspired by the design principles outlined by Prosocial Design (specifically the [Label Misleading Content & Add Links to Reliable Related Content](https://www.prosocialdesign.org/library/label-misleading-content-add-links-to-reliable-related-content) pattern), this library enables the addition of custom labels and descriptions to user-generated posts. This feature aids in identifying and marking potentially misleading, harmful, or unsafe content, while also providing users with links to reliable and related information.
 
 
-- On your extension homepage call the `declare_extension` macro, specifying the extension name, its icon (that will be mostly used to list the extension with the other active ones) and the default_nav.
+## Features
+- **Custom Labeling**: Easily add custom labels to posts, categorizing them based on content, reliability, and safety.
+- **Dynamic Descriptions**: Append descriptions to posts to provide context, warnings, or additional information.
+- **Link to Reliable Sources**: Option to include up to 3 links to authoritative sources for further reading or fact-checking.
+- **Configurable Settings**: Tailor the permission system to fit the specific governance of your platform.
+- **User-friendly Interface**: Intuitive tools for moderators and administrators to manage labels and descriptions.
 
-```
-declare_extension(
-      "ExtensionTemplate",
-      icon: "bi:app",
-      default_nav: [
-        Bonfire.Label.Web.HomeLive,
-        Bonfire.Label.Web.AboutLive
-      ])
-```
-
-- The views you will include in the `default_nav` section, will be the ones that will be shown on the navigation sidebar. 
-
-- The last step is to call `declare_nav_link` on each of those view/components already specified in declare_extension. 
-
-```
-declare_nav_link(l("About"),
-    page: "About",
-    href: "/bonfire_label/about",
-    icon: "typcn:info-large"
-  )
-```
 
 
 ## Copyright and License
