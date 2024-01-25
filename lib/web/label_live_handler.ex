@@ -7,18 +7,28 @@ defmodule Bonfire.Label.LiveHandler do
   #   new(attrs, socket)
   # end
 
-  def maybe_tag(current_user, object, tags) do
+  def maybe_tag(current_user, object, tags, params) do
     if module_enabled?(Bonfire.Tag.Tags) do
-      with {:ok, object_tagged} <-
-             Bonfire.Tag.Tags.tag_something(current_user, object, tags)
-             |> debug() do
-        Bonfire.Label.Labelling.label(e(object_tagged, :tags, []), object_tagged,
-          current_user: current_user
-        )
-        |> debug()
+      Bonfire.Label.Labelling.run_epic(:label_object,
+        label: tags,
+        object: object,
+        text: params["html_body"],
+        urls: params["links"],
+        attrs: input_to_atoms(params),
+        current_user: current_user,
+        boundary: "public"
+      )
 
-        {:ok, object_tagged}
-      end
+      # with {:ok, object_tagged} <-
+      #        Bonfire.Tag.Tags.tag_something(current_user, object, tags)
+      #        |> debug() do
+      #   Bonfire.Label.Labelling.label_object(e(object_tagged, :tags, []), object_tagged,
+      #     current_user: current_user
+      #   )
+      #   |> debug()
+
+      #   {:ok, object_tagged}
+      # end
     else
       error("No tagging extension enabled.")
     end
@@ -29,8 +39,8 @@ defmodule Bonfire.Label.LiveHandler do
            maybe_tag(
              current_user_required!(socket),
              e(params, "id", nil) || e(socket.assigns, :object, nil),
-             tags
-             #  :label #:skip_boundary_check
+             tags,
+             params
            ) do
       Bonfire.UI.Common.OpenModalLive.close()
 

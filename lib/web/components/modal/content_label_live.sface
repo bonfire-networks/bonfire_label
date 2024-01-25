@@ -32,15 +32,17 @@
             </div>
             <label class="form-control mt-2">
               <div class="label"><span class="label-text">{l("Provide some objective context")}</span></div>
-              <textarea class="textarea textarea-bordered h-24" placeholder="Type here" />
+              <textarea name="html_body" class="textarea textarea-bordered h-24" placeholder="Type here" />
             </label>
 
-            <div class="flex text-sm pt-3 mb-2 justify-between items-center gap-2">
+            <div
+              class="flex text-sm pt-3 mb-2 justify-between items-center gap-2"
+              @click="links.length < 3 && links.push('')"
+            >
               <div class="flex-1">{l("Add links/references (up to 3)")}</div>
               <button
                 x-show="links.length < 3"
                 type="button"
-                @click="links.length < 3 && links.push('')"
                 class="btn btn-sm btn-outline border-base-content/30 btn-circle"
               >
                 +
@@ -50,6 +52,7 @@
               <label class="form-control">
                 <div class="label flex px-0 gap-2 py-1 items-center">
                   <input
+                    name="links[]"
                     class="input h-[2.5rem] input-bordered flex-1 w-full"
                     placeholder="https://..."
                     x-model="links[index]"

@@ -3,6 +3,8 @@ defmodule Bonfire.Label.Labelling do
   alias Bonfire.Label
   # alias Bonfire.Boundaries.Verbs
 
+  alias Bonfire.Epics.Epic
+
   alias Bonfire.Social.Activities
   alias Bonfire.Social.Edges
   alias Bonfire.Social.Feeds
@@ -23,6 +25,17 @@ defmodule Bonfire.Label.Labelling do
   @behaviour Bonfire.Common.ContextModule
   def schema_module, do: Label
   def query_module, do: __MODULE__
+
+  def run_epic(type, options, module \\ __MODULE__, on \\ :page) do
+    options = Keyword.merge(options, crash: false, debug: true, verbose: false)
+
+    epic =
+      Epic.from_config!(module, type)
+      |> Epic.assign(:options, options)
+      |> Epic.run()
+
+    if epic.errors == [], do: {:ok, epic.assigns[on]}, else: {:error, epic}
+  end
 
   def labelled?(%{} = user, object),
     do: Edges.exists?(__MODULE__, user, object, skip_boundary_check: true)
@@ -48,67 +61,90 @@ defmodule Bonfire.Label.Labelling do
   def get!(subject, object, opts \\ []),
     do: Edges.get!(__MODULE__, subject, object, opts)
 
-  def label(labeler, labelled, opts \\ [])
+  def label_object(label, object, opts \\ [])
 
-  def label(%{} = labeler, %{} = object, opts) do
-    # if Bonfire.Boundaries.can?(labeler, :label, object) do
-    do_label(labeler, object, opts)
+  def label_object(%{} = label, %{} = object, opts) do
+    # if Bonfire.Boundaries.can?(label, :label, object, opts) do
+    do_label(label, object, opts)
     # else
     #   error(l("Sorry, you cannot label this"))
     # end
   end
 
-  def label(%{} = labeler, labelled, opts) when is_binary(labelled) do
+  def label_object(label, object, opts) when is_binary(object) do
     with {:ok, object} <-
            Bonfire.Common.Needles.get(
-             labelled,
+             object,
              opts ++
                [
-                 current_user: labeler,
+                 current_user: label,
                  #  verbs: [:label]
                  verbs: [:read]
                ]
            ) do
-      # debug(liked)
-      do_label(labeler, object, opts)
+      label_object(label, object, opts ++ [skip_boundary_check: true])
     else
       _ ->
         error(l("Sorry, you cannot label this"))
     end
   end
 
-  def label(labelers, object, opts) when is_list(labelers) do
-    labelers
-    |> Enum.each(&label(&1, object, opts))
+  def label_object(label, object, opts) when is_binary(label) do
+    with {:ok, label} <-
+           Bonfire.Label.Labels.get(
+             label,
+             opts ++
+               [
+                 skip_boundary_check: true
+               ]
+           ) do
+      label_object(label, object, opts)
+    else
+      _ ->
+        error(l("Sorry, could not find the desired label"))
+    end
   end
 
-  defp do_label(%{} = labeler, %{} = labelled, opts \\ []) do
-    labelled = Objects.preload_creator(labelled)
-    labelled_creator = Objects.object_creator(labelled)
+  def label_object(labels, object, opts) when is_list(labels) do
+    labels
+    |> Enum.each(&label_object(&1, object, opts))
+  end
 
-    opts = [
-      # TODO: get the preset for labeling from config and/or user's settings
-      boundary: "public",
-      to_circles: [id(labelled_creator)],
-      to_feeds:
-        [outbox: labeler] ++
-          if(e(opts, :notify_creator, true),
-            do: Feeds.maybe_creator_notification(labeler, labelled_creator, opts),
-            else: []
-          )
-    ]
+  defp do_label(%{} = label, %{} = object, opts \\ []) do
+    object = Objects.preload_creator(object)
+    object_creator = Objects.object_creator(object)
 
-    with {:ok, label} <- create(labeler, labelled, opts) do
-      # livepush will need a list of feed IDs we published to
-      feed_ids = for fp <- label.feed_publishes, do: fp.feed_id
+    opts =
+      opts ++
+        [
+          # TODO: get the preset for labeling from config and/or user's settings
+          boundary: "public",
+          to_circles: [id(object_creator)],
+          to_feeds:
+            [outbox: label] ++
+              if(e(opts, :notify_creator, true),
+                do: Feeds.maybe_creator_notification(label, object_creator, opts),
+                else: []
+              )
+        ]
 
-      LivePush.push_activity_object(feed_ids, label, labelled,
-        push_to_thread: false,
-        notify: true
-      )
+    # TODO: try to insert Tagged using changeset/transaction instead
+    with {:ok, object} <- Bonfire.Tag.Tags.tag_something(opts[:current_user], object, label) do
+      if opts[:return] == :changeset do
+        changeset(label, object, opts)
+      else
+        with {:ok, labelled} <- create(label, object, opts) do
+          # LivePush will need a list of feed IDs we published to
+          # feed_ids = for fp <- label.feed_publishes, do: fp.feed_id
+          # LivePush.push_activity_object(feed_ids, label, labelled,
+          #   push_to_thread: false,
+          #   notify: true
+          # )
 
-      Integration.maybe_federate_and_gift_wrap_activity(labeler, label)
-      |> debug("maybe_federated the label")
+          Integration.maybe_federate_and_gift_wrap_activity(label, labelled)
+          |> debug("maybe_federated the label (as a boost for now)")
+        end
+      end
     end
   end
 
@@ -176,6 +212,10 @@ defmodule Bonfire.Label.Labelling do
 
   def query(filters, opts) do
     query_base(filters, opts)
+  end
+
+  defp changeset(labeler, labelled, opts) do
+    Edges.changeset_without_caretaker(Label, labeler, :label, labelled, opts)
   end
 
   defp create(labeler, labelled, opts) do

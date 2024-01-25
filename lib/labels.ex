@@ -7,7 +7,7 @@ defmodule Bonfire.Label.Labels do
 
   def repo, do: Config.repo()
 
-  def get(id, name, opts \\ []) do
+  def get(id, opts \\ []) do
     Bonfire.Classify.Categories.get(id, opts ++ [skip_boundary_check: true])
   end
 
