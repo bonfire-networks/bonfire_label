@@ -1,0 +1,5 @@
+<section>
+    <div class="">
+    <#Icon iconify="bi:info" class="w-4 h-4" /> 
+    <span>{l "Get the latest"}</span></div>
+</section>

@@ -1,6 +1,6 @@
 <li :if={current_user_id(@__context__) && can_label?(@__context__, @object, @object_boundary)}>
   <OpenModalLive id={Text.random_string()} title_text={l("Label this post")} no_actions>
-    <div x-data="{ selectedLabel: 'latest', links: [] }" class="py-2">
+    <div x-data={"{ selectedLabel: #{List.first(e(labels(), :edges, []))}, links: [] }"} class="py-2">
       <div role="alert" class="alert alert-info">
         <svg
           xmlns="http://www.w3.org/2000/svg"
