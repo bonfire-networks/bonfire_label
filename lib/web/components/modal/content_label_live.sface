@@ -1,0 +1,77 @@
+<li :if={current_user_id(@__context__) && can_label?(@__context__, @object, @object_boundary)}>
+  <OpenModalLive id={Text.random_string()} title_text={l("Label this post")} no_actions>
+    {#case e(labels(), :edges, [])}
+      {#match []}
+        No labels defined.
+      {#match labels}
+        <div x-data={"{ selectedLabel: '#{id(List.first(labels))}', links: [] }"} class="py-2">
+          <div role="alert" class="alert alert-info">
+            <#Icon iconify="ph:info-fill" class="w-5 h-5" />
+
+            <span><p>{l(
+                  "The description and links will be publicly visible, be precise and ensure to add only relevant information."
+                )}</p></span>
+          </div>
+
+          <form class="mt-4" phx-submit="Bonfire.Label:add" phx-target={@target}>
+            <div class="flex items-center gap-2">
+              <span :class="{
+                  'min-w-[48px] w-[48px] h-[48px] rounded text-base-content': true,
+                  'bg-info': selectedLabel === '1ABE10VTDATEDGET1ATESTNEWS',
+                  'bg-warning': selectedLabel === '1ABE1M1S1NF0RMEDGETZEFACTS',
+                  'bg-error': selectedLabel === '1ABE1M1S1EAD1NGBACK2S0VRCE'
+              }">
+                <span x-show="selectedLabel === '1ABE10VTDATEDGET1ATESTNEWS'">
+                  <#Icon iconify="ph:info-fill" class="w-5 h-5" /></span>
+                <span x-show="selectedLabel ===  '1ABE1M1S1NF0RMEDGETZEFACTS'"><#Icon iconify="mingcute:warning-fill" class="w-5 h-5" /></span>
+                <span x-show="selectedLabel === '1ABE1M1S1EAD1NGBACK2S0VRCE'"><#Icon iconify="ooui:error" class="w-5 h-5" /></span>
+              </span>
+              <select name="label" x-model="selectedLabel" class="select select-bordered w-full max-w-full">
+                <option :for={%{id: id} = label <- labels} value={id}>{e(label, :name, nil) || e(label, :profile, :name, nil) || e(label, :character, :username, nil)}</option>
+              </select>
+            </div>
+            <label class="form-control mt-2">
+              <div class="label"><span class="label-text">{l("Provide some objective context")}</span></div>
+              <textarea class="textarea textarea-bordered h-24" placeholder="Type here" />
+            </label>
+
+            <div class="flex text-sm pt-3 mb-2 justify-between items-center gap-2">
+              <div class="flex-1">{l("Add links/references (up to 3)")}</div>
+              <button
+                x-show="links.length < 3"
+                type="button"
+                @click="links.length < 3 && links.push('')"
+                class="btn btn-sm btn-outline border-base-content/30 btn-circle"
+              >
+                +
+              </button>
+            </div>
+            <template x-for="(link, index) in links" :key="index">
+              <label class="form-control">
+                <div class="label flex px-0 gap-2 py-1 items-center">
+                  <input
+                    class="input h-[2.5rem] input-bordered flex-1 w-full"
+                    placeholder="https://..."
+                    x-model="links[index]"
+                  />
+                  <button type="button" @click="links.splice(index, 1)" class="btn btn-ghost btn-circle">
+                    <#Icon iconify="ph:trash-fill" class="w-5 h-5" />
+                  </button>
+                </div>
+              </label>
+            </template>
+            <button type="submit" class="btn mt-2 btn-primary rounded-full w-full">{l("Publish")}</button>
+          </form>
+        </div>
+    {/case}
+
+    <:open_btn>
+      <div role="label" title={l("Label this post")} class="flex items-center gap-2">
+        <#Icon iconify="material-symbols-light:label" class="w-4 h-4 shrink-0 text-base-content/70" />
+        <span class="truncate ellipsis text-sm text-base-content/70">
+          {l("Label this post")}
+        </span>
+      </div>
+    </:open_btn>
+  </OpenModalLive>
+</li>
