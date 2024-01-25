@@ -1,0 +1,9 @@
+defmodule Bonfire.Label.Web.MedialLive do
+  use Bonfire.UI.Common.Web, :stateless_component
+  # alias Bonfire.UI.Common.OpenModalLive
+
+  prop object_boundary, :any, default: nil
+  prop object, :any
+
+
+end
