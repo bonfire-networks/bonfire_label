@@ -1,6 +1,6 @@
 <li :if={current_user_id(@__context__) && can_label?(@__context__, @object, @object_boundary)}>
   <OpenModalLive id={Text.random_string()} title_text={l("Label this post")} no_actions>
-    <div x-data={"{ selectedLabel: #{List.first(e(labels(), :edges, []))}, links: [] }"} class="py-2">
+    <div x-data="{ selectedLabel: '', links: [] }" class="py-2">
       <div role="alert" class="alert alert-info">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -20,12 +20,12 @@
 
       <form class="mt-4" phx-submit="Bonfire.Label:add" phx-target={@target}>
         <div class="flex items-center gap-2">
-          <span :class="{
+          <!-- <span :class="{
                   'min-w-[48px] w-[48px] h-[48px] rounded': true,
                   'bg-info': selectedLabel === '1ABE10VTDATEDGET1ATESTNEWS',
                   'bg-warning': selectedLabel === '1ABE1M1S1NF0RMEDGETZEFACTS',
                   'bg-error': selectedLabel === '1ABE1M1S1EAD1NGBACK2S0VRCE'
-              }" />
+              }" /> -->
           <select name="label" x-model="selectedLabel" class="select select-bordered w-full max-w-full">
             <option :for={%{id: id} = label <- e(labels(), :edges, [])} value={id}>{e(label, :name, nil) || e(label, :profile, :name, nil) || e(label, :character, :username, nil)}</option>
           </select>
