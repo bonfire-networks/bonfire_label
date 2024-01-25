@@ -16,15 +16,20 @@
           <form class="mt-4" phx-submit="Bonfire.Label:add" phx-target={@target}>
             <div class="flex items-center gap-2">
               <span :class="{
-                  'min-w-[48px] w-[48px] h-[48px] rounded text-base-content': true,
+                  'min-w-[48px] flex w-[48px] h-[48px] items-center place-content-center rounded text-base-content': true,
                   'bg-info': selectedLabel === '1ABE10VTDATEDGET1ATESTNEWS',
                   'bg-warning': selectedLabel === '1ABE1M1S1NF0RMEDGETZEFACTS',
                   'bg-error': selectedLabel === '1ABE1M1S1EAD1NGBACK2S0VRCE'
               }">
                 <span x-show="selectedLabel === '1ABE10VTDATEDGET1ATESTNEWS'">
-                  <#Icon iconify="ph:info-fill" class="w-5 h-5" /></span>
-                <span x-show="selectedLabel ===  '1ABE1M1S1NF0RMEDGETZEFACTS'"><#Icon iconify="mingcute:warning-fill" class="w-5 h-5" /></span>
-                <span x-show="selectedLabel === '1ABE1M1S1EAD1NGBACK2S0VRCE'"><#Icon iconify="ooui:error" class="w-5 h-5" /></span>
+                  <#Icon iconify="ph:info-fill" class="w-6 h-6 text-info-content" />
+                </span>
+                <span x-show="selectedLabel ===  '1ABE1M1S1NF0RMEDGETZEFACTS'">
+                  <#Icon iconify="mingcute:warning-fill" class="w-6 h-6 text-warning-content" />
+                </span>
+                <span x-show="selectedLabel === '1ABE1M1S1EAD1NGBACK2S0VRCE'">
+                  <#Icon iconify="ooui:error" class="w-6 h-6 text-error-content" />
+                </span>
               </span>
               <select name="label" x-model="selectedLabel" class="select select-bordered w-full max-w-full">
                 <option :for={%{id: id} = label <- labels} value={id}>{e(label, :name, nil) || e(label, :profile, :name, nil) || e(label, :character, :username, nil)}</option>
