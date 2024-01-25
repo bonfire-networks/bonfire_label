@@ -14,31 +14,29 @@
             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           /></svg>
         <span><p>{l(
-              "The label and description will be visible to all the users, be precise and ensure to add only relevant information."
+              "The description and links will be publicly visible, be precise and ensure to add only relevant information."
             )}</p></span>
       </div>
 
-      <form class="mt-4">
+      <form class="mt-4" phx-submit="Bonfire.Label:add" phx-target={@target}>
         <div class="flex items-center gap-2">
           <span :class="{
                   'min-w-[48px] w-[48px] h-[48px] rounded': true,
-                  'bg-info': selectedLabel === 'latest',
-                  'bg-warning': selectedLabel === 'informed',
-                  'bg-error': selectedLabel === 'misleading'
+                  'bg-info': selectedLabel === '1ABE10VTDATEDGET1ATESTNEWS',
+                  'bg-warning': selectedLabel === '1ABE1M1S1NF0RMEDGETZEFACTS',
+                  'bg-error': selectedLabel === '1ABE1M1S1EAD1NGBACK2S0VRCE'
               }" />
-          <select x-model="selectedLabel" class="select select-bordered w-full max-w-full">
-            <option value="latest">{l("Get the latest")}</option>
-            <option value="informed">{l("Stay informed")}</option>
-            <option value="misleading">{l("Misleading")}</option>
+          <select name="label" x-model="selectedLabel" class="select select-bordered w-full max-w-full">
+            <option :for={%{id: id} = label <- e(labels(), :edges, [])} value={id}>{e(label, :name, nil) || e(label, :profile, :name, nil) || e(label, :character, :username, nil)}</option>
           </select>
         </div>
         <label class="form-control mt-2">
-          <div class="label"><span class="label-text">{l("Describe your reasons")}</span></div>
-          <textarea class="textarea textarea-bordered h-24" placeholder="Bio" />
+          <div class="label"><span class="label-text">{l("Provide some objective context")}</span></div>
+          <textarea class="textarea textarea-bordered h-24" placeholder="Type here" />
         </label>
 
         <div class="flex text-sm pt-3 mb-2 justify-between items-center gap-2">
-          <div class="flex-1">{l("Add a link (up to 3)")}</div>
+          <div class="flex-1">{l("Add links/references (up to 3)")}</div>
           <button
             x-show="links.length < 3"
             type="button"
@@ -62,7 +60,7 @@
             </div>
           </label>
         </template>
-        <button type="action" class="btn mt-2 btn-primary rounded-full w-full">{l("Publish")}</button>
+        <button type="submit" class="btn mt-2 btn-primary rounded-full w-full">{l("Publish")}</button>
       </form>
     </div>
 

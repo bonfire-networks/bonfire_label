@@ -24,9 +24,12 @@ defmodule Bonfire.Label.Web.Routes do
       end
 
       # pages you need to view as a user
-      scope "/bonfire_label/", Bonfire.Label.Web do
+      scope "/", Bonfire.Label.Web do
         pipe_through(:browser)
         pipe_through(:user_required)
+
+        live("/labels", LabelsLive)
+        live("/labels/:id", LabelsLive)
       end
 
       # pages only admins can view
