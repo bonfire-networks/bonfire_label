@@ -5,7 +5,7 @@
         No labels defined.
       {#match labels}
         <div x-data={"{ selectedLabel: '#{id(List.first(labels))}', links: [] }"} class="py-2">
-          <div role="alert" class="alert alert-info">
+          <div role="alert" class="alert text-sm items-start rounded alert-info">
             <#Icon iconify="ph:info-fill" class="w-5 h-5" />
 
             <span><p>{l(
@@ -37,7 +37,7 @@
             </div>
             <label class="form-control mt-2">
               <div class="label"><span class="label-text">{l("Provide some objective context")}</span></div>
-              <textarea name="html_body" class="textarea textarea-bordered h-24" placeholder="Type here" />
+              <textarea name="html_body" class="textarea textarea-bordered leading-[20px] text-sm h-32" placeholder="Type here" />
             </label>
 
             <div
@@ -58,7 +58,7 @@
                 <div class="label flex px-0 gap-2 py-1 items-center">
                   <input
                     name="links[]"
-                    class="input h-[2.5rem] input-bordered flex-1 w-full"
+                    class="input h-[2.5rem] text-sm input-bordered flex-1 w-full"
                     placeholder="https://..."
                     x-model="links[index]"
                   />

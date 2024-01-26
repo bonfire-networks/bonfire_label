@@ -1,6 +1,6 @@
 <div data-type={id(@label)} class="border mt-3 rounded-lg border-base-content/30">
   <!-- :if={@showing_within not in [:group, :topic, :thread]} -->
-  <div class="bg-base-content/5  rounded-t-lg border-b border-base-content/30 flex items-center gap-3 py-2 p-3">
+  <div class="bg-base-content/10 rounded-t-lg flex items-center gap-3 py-2 p-3">
     {#if id(@label) == "1ABE10VTDATEDGET1ATESTNEWS"}
       <#Icon iconify="ph:info-fill" class="w-5 h-5 text-info" />
     {#elseif id(@label) == "1ABE1M1S1NF0RMEDGETZEFACTS"}
@@ -8,7 +8,7 @@
     {#else}
       <#Icon iconify="ooui:error" class="w-5 h-5 text-error" />
     {/if}
-    <div class="font-semibold text-base-content">
+    <div class="font-medium text-sm text-base-content">
       {e(@label, :profile, :name, nil) || e(@label, :character, :username, nil)}
     </div>
   </div>
@@ -16,17 +16,19 @@
     <div class="prose leading-[22px] text-base-content/90 prose-sm">
       {!-- {e(@activity, :labelled, :post_content, :name, nil)}
     {e(@activity, :labelled, :post_content, :summary, nil)} --}
-      {e(@activity, :labelled, :post_content, :html_body, nil)}</div>
+      {rich(e(@activity, :labelled, :post_content, :html_body, nil))}</div>
   </div>
   {!--<div class="flex p-3 mt-2 border-t border-base-content/30 pt-2 gap-1"> 
        <#Icon iconify="ri:attachment-2" class="w-4 h-4 text-base-content/70" />
       <a class="link" href="#">https://bonfirenetworks.org/about/</a> --}
 
-  <StatelessComponent
-    module={maybe_component(Bonfire.UI.Social.Activity.MediaLive)}
-    showing_within={@showing_within}
-    media={e(@activity, :labelled, :media, [])}
-  />
+  <div data-id="labelled_media" class="mx-2">
+    <StatelessComponent
+      module={maybe_component(Bonfire.UI.Social.Activity.MediaLive)}
+      showing_within={@showing_within}
+      media={e(@activity, :labelled, :media, [])}
+    />
+  </div>
   <!-- parent_id={@parent_id}
                 activity_inception={@activity_inception} -->
 
