@@ -37,7 +37,11 @@
             </div>
             <label class="form-control mt-2">
               <div class="label"><span class="label-text">{l("Provide some objective context")}</span></div>
-              <textarea name="html_body" class="textarea textarea-bordered leading-[20px] text-sm h-32" placeholder="Type here" />
+              <textarea
+                name="html_body"
+                class="textarea textarea-bordered leading-[20px] text-sm h-32"
+                placeholder="Type here"
+              />
             </label>
 
             <div
