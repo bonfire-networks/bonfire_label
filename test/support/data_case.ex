@@ -15,7 +15,7 @@ defmodule Bonfire.Label.DataCase do
   """
 
   use ExUnit.CaseTemplate
-  import Bonfire.Label.Integration
+  # import Bonfire.Label.Integration
 
   using do
     quote do

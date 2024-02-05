@@ -41,7 +41,7 @@ defmodule Bonfire.Label.ConnCase do
   end
 
   setup tags do
-    import Bonfire.Label.Integration
+    # import Bonfire.Label.Integration
 
     Bonfire.Common.Test.Interactive.setup_test_repo(tags)
 

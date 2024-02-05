@@ -6,7 +6,7 @@ defmodule Bonfire.Label.Test.FakeHelpers do
 
   import ExUnit.Assertions
 
-  import Bonfire.Label.Integration
+  # import Bonfire.Label.Integration
 
   import Bonfire.Label.Fake
 end
