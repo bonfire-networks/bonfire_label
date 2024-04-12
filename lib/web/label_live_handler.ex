@@ -8,7 +8,7 @@ defmodule Bonfire.Label.LiveHandler do
   # end
 
   def maybe_tag(current_user, object, tags, params) do
-    if module_enabled?(Bonfire.Tag.Tags) do
+    if module_enabled?(Bonfire.Tag.Tags, current_user) do
       Bonfire.Label.Labelling.run_epic(:label_object,
         label: tags,
         object: object,
