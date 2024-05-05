@@ -9,7 +9,7 @@ defmodule Bonfire.Label.Labelling do
   alias Bonfire.Social.Edges
   alias Bonfire.Social.Feeds
   # alias Bonfire.Social.FeedActivities
-  alias Bonfire.Social.Integration
+  alias Bonfire.Social
   alias Bonfire.Social.LivePush
   alias Bonfire.Social.Objects
 
@@ -18,7 +18,7 @@ defmodule Bonfire.Label.Labelling do
   use Bonfire.Common.Repo,
     searchable_fields: [:labeler_id, :labelled_id]
 
-  # import Bonfire.Social.Integration
+  # import Bonfire.Social
   use Bonfire.Common.Utils
 
   @behaviour Bonfire.Common.QueryModule
@@ -141,7 +141,7 @@ defmodule Bonfire.Label.Labelling do
           #   notify: true
           # )
 
-          Integration.maybe_federate_and_gift_wrap_activity(label, labelled)
+          Social.maybe_federate_and_gift_wrap_activity(label, labelled)
           |> debug("maybe_federated the label (as a boost for now)")
         end
       end

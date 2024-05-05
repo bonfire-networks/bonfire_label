@@ -1,4 +1,6 @@
 defmodule Bonfire.Label do
+  @moduledoc "./README.md" |> File.stream!() |> Enum.drop(1) |> Enum.join()
+
   use Needle.Virtual,
     otp_app: :bonfire_label,
     table_id: "71ABE1SADDED0NT0S0METH1NGS",
