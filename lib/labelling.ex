@@ -10,7 +10,7 @@ defmodule Bonfire.Label.Labelling do
   alias Bonfire.Social.Feeds
   # alias Bonfire.Social.FeedActivities
   alias Bonfire.Social
-  alias Bonfire.Social.LivePush
+
   alias Bonfire.Social.Objects
 
   # alias Bonfire.Data.Edges.Edge
@@ -136,10 +136,10 @@ defmodule Bonfire.Label.Labelling do
         with {:ok, labelled} <- create(label, object, opts) do
           # LivePush will need a list of feed IDs we published to
           # feed_ids = for fp <- label.feed_publishes, do: fp.feed_id
-          # LivePush.push_activity_object(feed_ids, label, labelled,
-          #   push_to_thread: false,
-          #   notify: true
-          # )
+          # maybe_apply(Bonfire.UI.Social.LivePush, :push_activity_object, [feed_ids, label, labelled,
+          #   [push_to_thread: false,
+          #   notify: true]
+          # ])
 
           Social.maybe_federate_and_gift_wrap_activity(label, labelled)
           |> debug("maybe_federated the label (as a boost for now)")
