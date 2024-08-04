@@ -1,6 +1,7 @@
 defmodule Bonfire.Label.Acts.LabelObject do
   @moduledoc """
-  Creates a changeset for publishing a page
+  Takes an object and label and returns a changeset for labeling that object. 
+  Implements `Bonfire.Epics.Act`.
 
   Epic Options:
     * `:current_user` - user that will create the page, required.
