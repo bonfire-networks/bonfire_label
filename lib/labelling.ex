@@ -122,7 +122,7 @@ defmodule Bonfire.Label.Labelling do
         ]
 
     # TODO: try to insert Tagged using changeset/transaction instead
-    with {:ok, object} <- Bonfire.Tag.tag_something(current_user(options), object, label) do
+    with {:ok, object} <- Bonfire.Tag.tag_something(current_user(opts), object, label) do
       if opts[:return] == :changeset do
         changeset(label, object, opts)
       else
