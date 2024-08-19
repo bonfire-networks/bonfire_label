@@ -25,7 +25,7 @@ defmodule Bonfire.Label.Acts.LabelObject do
   # see module documentation
   @doc false
   def run(epic, act) do
-    current_user = epic.assigns[:options][:current_user]
+    current_user = Bonfire.Common.Utils.current_user(epic.assigns[:options])
 
     cond do
       epic.errors != [] ->
