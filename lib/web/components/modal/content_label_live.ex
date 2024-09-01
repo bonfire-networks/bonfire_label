@@ -4,6 +4,7 @@ defmodule Bonfire.Label.Web.ContentLabelLive do
 
   prop object, :any, required: true
   prop object_boundary, :any, default: nil
+  prop btn_label, :string, default: nil
   prop target, :any, default: nil
 
   def label_id, do: "1ABE1SF0RC0NTENTM0DERAT10N"
@@ -17,6 +18,7 @@ defmodule Bonfire.Label.Web.ContentLabelLive do
     with {:ok, parent_label} <-
            Bonfire.Label.Labels.get_or_create(label_id(), "Content Moderation Labels"),
          %{edges: []} <- labels_under(parent_label) do
+      # if no labels exists, create some defaults
       Bonfire.Label.Labels.get_or_create(
         "1ABE10VTDATEDGET1ATESTNEWS",
         "Get the latest",

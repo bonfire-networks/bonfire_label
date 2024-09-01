@@ -1,14 +1,31 @@
-<div data-type={id(@label)} class="border mt-3 rounded-lg border-base-content/30">
+<div
+  data-type={@label_id}
+  class={
+    "border mt-3 rounded-lg border-base-content/30 ",
+    "border-info": @label_id == "1ABE10VTDATEDGET1ATESTNEWS",
+    "border-warning": @label_id == "1ABE1M1S1NF0RMEDGETZEFACTS",
+    "border-error": @label_id == "1ABE1M1S1EAD1NGBACK2S0VRCE"
+  }
+>
   <!-- :if={@showing_within not in [:group, :topic, :thread]} -->
-  <div class="bg-base-content/10 rounded-t-lg flex items-center gap-3 py-2 p-3">
-    {#if id(@label) == "1ABE10VTDATEDGET1ATESTNEWS"}
-      <#Icon iconify="ph:info-fill" class="w-5 h-5 text-info" />
-    {#elseif id(@label) == "1ABE1M1S1NF0RMEDGETZEFACTS"}
-      <#Icon iconify="mingcute:warning-fill" class="w-5 h-5 text-warning" />
-    {#else}
-      <#Icon iconify="ooui:error" class="w-5 h-5 text-error" />
-    {/if}
-    <div class="font-medium text-sm text-base-content">
+  <div class={
+    "bg-base-content/10 rounded-t-lg flex items-center gap-3 py-2 p-3 ",
+    "bg-info text-info-content": @label_id == "1ABE10VTDATEDGET1ATESTNEWS",
+    "bg-warning text-warning-content": @label_id == "1ABE1M1S1NF0RMEDGETZEFACTS",
+    "bg-error text-error-content": @label_id == "1ABE1M1S1EAD1NGBACK2S0VRCE"
+  }>
+    {#case @label_id || id(@label)}
+      {#match "1ABE10VTDATEDGET1ATESTNEWS"}
+        <#Icon iconify="ri:broadcast-fill" class="w-5 h-5" />
+      {#match "1ABE1M1S1NF0RMEDGETZEFACTS"}
+        <#Icon iconify="material-symbols:local-library-rounded" class="w-5 h-5" />
+      {#match "1ABE1M1S1EAD1NGBACK2S0VRCE"}
+        <#Icon iconify="ooui:error" class="w-5 h-5" />
+      {#match _}
+        <#Icon iconify="material-symbols:local-library-rounded" class="w-5 h-5" />
+    {/case}
+
+    <div class="font-medium text-sm">
       {e(@label, :profile, :name, nil) || e(@label, :character, :username, nil)}
     </div>
   </div>
@@ -22,11 +39,18 @@
        <#Icon iconify="ri:attachment-2" class="w-4 h-4 text-base-content/70" />
       <a class="link" href="#">https://bonfirenetworks.org/about/</a> --}
 
-  <div data-id="labelled_media" class="mx-2">
+  <div data-id="labelled_media" class="">
     <StatelessComponent
       module={maybe_component(Bonfire.UI.Social.Activity.MediaLive)}
       showing_within={@showing_within}
       media={e(@activity, :labelled, :media, [])}
+      small_icon
+      css_borders={
+        "border-t pt-2",
+        "border-info": @label_id == "1ABE10VTDATEDGET1ATESTNEWS",
+        "border-warning": @label_id == "1ABE1M1S1NF0RMEDGETZEFACTS",
+        "border-error": @label_id == "1ABE1M1S1EAD1NGBACK2S0VRCE"
+      }
     />
   </div>
   <!-- parent_id={@parent_id}

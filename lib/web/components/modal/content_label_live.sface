@@ -1,5 +1,9 @@
 <li :if={current_user_id(@__context__) && can_label?(@__context__, @object, @object_boundary)}>
-  <OpenModalLive id={Text.random_string()} title_text={l("Label this post")} no_actions>
+  <OpenModalLive
+    id={Text.random_string()}
+    title_text={@btn_label || l("Label this post")}
+    no_actions
+  >
     {#case e(labels(), :edges, [])}
       {#match []}
         No labels defined.
@@ -22,15 +26,16 @@
                   'bg-error': selectedLabel === '1ABE1M1S1EAD1NGBACK2S0VRCE'
               }">
                 <span x-show="selectedLabel === '1ABE10VTDATEDGET1ATESTNEWS'">
-                  <#Icon iconify="ph:info-fill" class="w-6 h-6 text-info-content" />
+                  <#Icon iconify="ri:broadcast-fill" class="w-6 h-6 text-info-content" />
                 </span>
-                <span x-show="selectedLabel ===  '1ABE1M1S1NF0RMEDGETZEFACTS'">
-                  <#Icon iconify="mingcute:warning-fill" class="w-6 h-6 text-warning-content" />
+                <span x-show="selectedLabel === '1ABE1M1S1NF0RMEDGETZEFACTS'">
+                  <#Icon iconify="material-symbols:local-library-rounded" class="w-6 h-6 text-warning-content" />
                 </span>
                 <span x-show="selectedLabel === '1ABE1M1S1EAD1NGBACK2S0VRCE'">
                   <#Icon iconify="ooui:error" class="w-6 h-6 text-error-content" />
                 </span>
               </span>
+
               <select name="label" x-model="selectedLabel" class="select select-bordered w-full max-w-full">
                 <option :for={%{id: id} = label <- labels} value={id}>{e(label, :name, nil) || e(label, :profile, :name, nil) || e(label, :character, :username, nil)}</option>
               </select>
@@ -72,16 +77,16 @@
                 </div>
               </label>
             </template>
-            <button type="submit" class="btn mt-2 btn-primary rounded-full w-full">{l("Publish")}</button>
+            <button type="submit" class="btn mt-2 btn-primary rounded-full w-full">{l("Publish the label")}</button>
           </form>
         </div>
     {/case}
 
     <:open_btn>
-      <div role="label" title={l("Label this post")} class="flex items-center gap-2">
-        <#Icon iconify="material-symbols-light:label" class="w-4 h-4 shrink-0 text-base-content/70" />
-        <span class="truncate ellipsis text-sm text-base-content/70">
-          {l("Label this post")}
+      <div role="label" title={@btn_label || l("Label this post")} class="flex items-center gap-2">
+        <#Icon iconify="material-symbols-light:label" class="w-4 h-4 shrink-0" />
+        <span class="truncate ellipsis text-sm text-base-content">
+          {@btn_label || l("Label this post")}
         </span>
       </div>
     </:open_btn>
