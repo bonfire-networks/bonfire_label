@@ -29,15 +29,16 @@
       {e(@label, :profile, :name, nil) || e(@label, :character, :username, nil)}
     </div>
   </div>
-  <div class="p-3">
-    <div class="prose leading-[22px] text-base-content/90 prose-sm">
-      {!-- {e(@activity, :labelled, :post_content, :name, nil)}
+  {#case e(@activity, :labelled, :post_content, :html_body, nil)}
+    {#match nil}
+    {#match body}
+      <div class="p-3">
+        <div class="prose leading-[22px] text-base-content/90 prose-sm">
+          {!-- {e(@activity, :labelled, :post_content, :name, nil)}
     {e(@activity, :labelled, :post_content, :summary, nil)} --}
-      {rich(e(@activity, :labelled, :post_content, :html_body, nil))}</div>
-  </div>
-  {!--<div class="flex p-3 mt-2 border-t border-base-content/30 pt-2 gap-1"> 
-       <#Icon iconify="ri:attachment-2" class="w-4 h-4 text-base-content/70" />
-      <a class="link" href="#">https://bonfirenetworks.org/about/</a> --}
+          {rich(body)}</div>
+      </div>
+  {/case}
 
   <div data-id="labelled_media" class="">
     <StatelessComponent
@@ -46,7 +47,7 @@
       media={e(@activity, :labelled, :media, [])}
       small_icon
       css_borders={
-        "border-t pt-2",
+        "border-t py-2",
         "border-info": @label_id == "1ABE10VTDATEDGET1ATESTNEWS",
         "border-warning": @label_id == "1ABE1M1S1NF0RMEDGETZEFACTS",
         "border-error": @label_id == "1ABE1M1S1EAD1NGBACK2S0VRCE"
