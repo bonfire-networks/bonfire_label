@@ -57,7 +57,7 @@
               <button
                 x-show="links.length < 3"
                 type="button"
-                class="btn btn-sm btn-outline border-base-content/30 btn-circle"
+                class="btn btn-sm btn-square btn-neutral"
               >
                 +
               </button>
@@ -67,12 +67,13 @@
                 <div class="label flex px-0 gap-2 py-1 items-center">
                   <input
                     name="links[]"
-                    class="input h-[2.5rem] text-sm input-bordered flex-1 w-full"
+                    autocomplete="off"
+                    class="input input-sm input-bordered flex-1 w-full"
                     placeholder="https://..."
                     x-model="links[index]"
                   />
-                  <button type="button" @click="links.splice(index, 1)" class="btn btn-ghost btn-circle">
-                    <#Icon iconify="ph:trash-fill" class="w-5 h-5" />
+                  <button type="button" @click="links.splice(index, 1)" class="btn btn-sm btn-square btn-neutral">
+                    <#Icon iconify="ph:trash-fill" class="w-4 h-4" />
                   </button>
                 </div>
               </label>
