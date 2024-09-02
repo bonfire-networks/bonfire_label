@@ -1,10 +1,10 @@
-<li :if={current_user_id(@__context__) && can_label?(@__context__, @object, @object_boundary)}>
+<li :if={current_user_id(@__context__) && ContentLabels.can_label?(@__context__, @object, @object_boundary)}>
   <OpenModalLive
     id={Text.random_string()}
     title_text={@btn_label || l("Label this post")}
     no_actions
   >
-    {#case e(labels(), :edges, [])}
+    {#case e(ContentLabels.labels(), :edges, [])}
       {#match []}
         No labels defined.
       {#match labels}
@@ -54,11 +54,7 @@
               @click="links.length < 3 && links.push('')"
             >
               <div class="flex-1">{l("Add links/references (up to 3)")}</div>
-              <button
-                x-show="links.length < 3"
-                type="button"
-                class="btn btn-sm btn-square btn-neutral"
-              >
+              <button x-show="links.length < 3" type="button" class="btn btn-sm btn-square btn-neutral">
                 +
               </button>
             </div>
