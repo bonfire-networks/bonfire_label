@@ -29,20 +29,21 @@ defmodule Bonfire.Label.ContentLabels do
   end
 
   def labels do
-    with {:ok, parent_label} <-
-           Bonfire.Label.Labels.get_or_create(parent_label_id(), "Content Moderation Labels"),
-         %{edges: []} <- labels_under(parent_label) do
+    parent_label_id = parent_label_id()
+    with {:ok, _parent_label} <-
+           Bonfire.Label.Labels.get_or_create(parent_label_id, "Content Moderation Labels"),
+         %{edges: []} <- labels_under(parent_label_id) do
       # if no labels exists, create some defaults
       Enum.map(built_ins(), fn {id, label, slug} ->
         Bonfire.Label.Labels.get_or_create(
           id,
-          "Get the latest",
           label,
+          parent_label_id,
           slug
         )
       end)
 
-      labels_under(parent_label)
+      labels_under(parent_label_id)
     end
   end
 
