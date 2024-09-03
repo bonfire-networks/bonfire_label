@@ -240,7 +240,7 @@ defmodule Bonfire.Label.Labelling do
            ActivityPub.Object.get_cached(
              pointer: e(label, :edge, :object, nil) || e(label, :edge, :object_id, nil)
            ) do
-      ActivityPub.announce(%{actor: labeler, object: object, pointer: ulid(label)})
+      ActivityPub.announce(%{actor: labeler, object: object, pointer: uid(label)})
     else
       e ->
         error(e, "Could not find the federated actor or object to label.")
