@@ -28,7 +28,9 @@ defmodule Bonfire.Label.Labels do
       name: name,
       type: :label,
       parent_category:
-        Enums.id(parent_id || if(id != top_label_id(), do: get_or_create(top_label_id(), "Labels"))),
+        Enums.id(
+          parent_id || if(id != top_label_id(), do: get_or_create(top_label_id(), "Labels"))
+        ),
       username: username,
       without_character: !username
     })
