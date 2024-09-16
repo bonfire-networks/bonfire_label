@@ -129,7 +129,7 @@ defmodule Bonfire.Label.Labelling do
         with {:ok, labelled} <- create(label, object, opts) do
           # LivePush will need a list of feed IDs we published to
           # feed_ids = for fp <- label.feed_publishes, do: fp.feed_id
-          # maybe_apply(Bonfire.UI.Social.LivePush, :push_activity_object, [feed_ids, label, labelled,
+          # maybe_apply(Bonfire.Social.LivePush, :push_activity_object, [feed_ids, label, labelled,
           #   [push_to_thread: false,
           #   notify: true]
           # ])
