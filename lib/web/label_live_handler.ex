@@ -38,7 +38,7 @@ defmodule Bonfire.Label.LiveHandler do
     with {:ok, _} <-
            maybe_tag(
              current_user_required!(socket),
-             e(params, "id", nil) || e(socket.assigns, :object, nil),
+             e(params, "id", nil) || e(assigns(socket), :object, nil),
              tags,
              params
            ) do
