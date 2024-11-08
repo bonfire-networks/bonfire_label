@@ -21,7 +21,7 @@ config :bonfire_label, :otp_app, :bonfire_label
 config :bonfire_common, :otp_app, :bonfire_label
 config :bonfire_label, :repo_module, Bonfire.Common.Repo
 config :bonfire_label, ecto_repos: [Bonfire.Common.Repo]
-config :bonfire_label, :localisation_path, "priv/localisation"
+config :bonfire_common, :localisation_path, "priv/localisation"
 
 config :bonfire_data_identity, Bonfire.Data.Identity.Credential, hasher_module: Argon2
 
