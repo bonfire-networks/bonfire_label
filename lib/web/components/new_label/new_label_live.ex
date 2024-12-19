@@ -1,6 +1,8 @@
 defmodule Bonfire.Label.Web.NewLabelLive do
   use Bonfire.UI.Common.Web, :stateless_component
 
+  def label_id, do: "1ABE1SC1ASS1FYC00RD1NAT10N"
+
   prop category, :any, default: nil
   # prop object, :any, default: nil
   prop context_id, :any, default: nil

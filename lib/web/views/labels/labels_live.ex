@@ -1,9 +1,7 @@
 defmodule Bonfire.Label.Web.LabelsLive do
   use Bonfire.UI.Common.Web, :surface_live_view
 
-  alias Bonfire.UI.Topics.CategoryLive.SubcategoriesLive
-  alias Bonfire.Classify.Web.CommunityLive.CommunityCollectionsLive
-  alias Bonfire.Classify.Web.CollectionLive.CollectionResourcesLive
+  # alias Bonfire.UI.Topics.CategoryLive.SubcategoriesLive
 
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.LoadCurrentUser]}
 
