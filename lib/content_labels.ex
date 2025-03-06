@@ -5,7 +5,7 @@ defmodule Bonfire.Label.ContentLabels do
 
   def can_label?(context, object, object_boundary \\ nil) do
     # && Types.object_type(object) == Bonfire.Data.Social.Post
-    Bonfire.Boundaries.can?(context, :moderate, :instance)
+    Bonfire.Boundaries.can?(context, :mediate, :instance)
   end
 
   def built_ins do
