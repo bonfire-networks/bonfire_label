@@ -1,5 +1,9 @@
 <li :if={current_user_id(@__context__) && ContentLabels.can_label?(@__context__, @object, @object_boundary)}>
-  <OpenModalLive id={random_dom_id()} title_text={@btn_label || l("Label this post")} no_actions>
+  <OpenModalLive
+    id={deterministic_dom_id("label_modal", id(@object), @scope, @parent_id)}
+    title_text={@btn_label || l("Label this post")}
+    no_actions
+  >
     {#case e(ContentLabels.labels(), :edges, [])}
       {#match []}
         No labels defined.
