@@ -13,7 +13,6 @@ defmodule Bonfire.Label.Web.NewLabelLive do
   prop textarea_container_class, :css_class
   prop to_boundaries, :any, default: nil
   prop open_boundaries, :boolean, default: false
-  prop create_object_type, :any, default: :category
   prop to_circles, :list, default: []
   prop exclude_circles, :list, default: []
   prop showing_within, :atom, default: nil
