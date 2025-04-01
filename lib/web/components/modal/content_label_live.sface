@@ -81,7 +81,7 @@
 
     <:open_btn>
       <div role="label" title={@btn_label || l("Label this post")} class="flex items-center gap-2">
-        <#Icon iconify="material-symbols-light:label" class="w-4 h-4 shrink-0" />
+        <!-- <#Icon iconify="material-symbols-light:label" class="w-4 h-4 shrink-0" /> -->
         <span class="truncate ellipsis text-sm text-base-content">
           {@btn_label || l("Label this post")}
         </span>
