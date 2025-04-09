@@ -23,6 +23,8 @@ defmodule Bonfire.Label.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       # import Bonfire.Label.DataCase
+
+      @moduletag :backend
     end
   end
 
