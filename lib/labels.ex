@@ -1,5 +1,5 @@
 defmodule Bonfire.Label.Labels do
-  alias Bonfire.Common.Config
+  use Bonfire.Common.Config
   alias Bonfire.Common.Utils
   alias Bonfire.Common.Enums
   # import Untangle
