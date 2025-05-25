@@ -6,7 +6,7 @@ defmodule Bonfire.Label.Web.LabelsLive do
   on_mount {LivePlugs, [Bonfire.UI.Me.LivePlugs.LoadCurrentUser]}
 
   def mount(params, _session, socket) do
-    current_user = current_user(assigns(socket))
+    current_user = current_user(socket)
 
     label_category = Bonfire.Label.Labels.top_label_id()
 
@@ -25,7 +25,7 @@ defmodule Bonfire.Label.Web.LabelsLive do
       with {:error, :not_found} <-
              Bonfire.Classify.Categories.get(id, [
                :default_incl_deleted,
-               current_user: current_user(assigns(socket))
+               current_user: current_user(socket)
              ]) do
         if id == label_category,
           do: Bonfire.Label.Labels.create(label_category, "Labels"),
