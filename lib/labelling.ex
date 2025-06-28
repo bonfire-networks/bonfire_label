@@ -201,7 +201,7 @@ defmodule Bonfire.Label.Labelling do
   end
 
   def query([my: :labels], opts),
-    do: query([subject: current_user_required!(opts)], opts)
+    do: query([subjects: current_user_required!(opts)], opts)
 
   def query(filters, opts) do
     query_base(filters, opts)
