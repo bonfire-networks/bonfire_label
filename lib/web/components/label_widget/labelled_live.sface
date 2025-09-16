@@ -66,8 +66,7 @@
         css_borders="border rounded-md border-base-content/20"
       />
     </div>
-    <!-- parent_id={@parent_id}
-                activity_inception={@activity_inception} -->
+    <!-- activity_inception={@activity_inception} -->
 
     {!-- </div> --}
   </div>
