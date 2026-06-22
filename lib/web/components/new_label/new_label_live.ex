@@ -23,4 +23,7 @@ defmodule Bonfire.Label.Web.NewLabelLive do
 
   @behaviour Bonfire.UI.Common.SmartInputModule
   def smart_input_module, do: [:label]
+
+  def smart_input_icon(_), do: "ph:tag-duotone"
+  def smart_input_label(_), do: l("Label")
 end
