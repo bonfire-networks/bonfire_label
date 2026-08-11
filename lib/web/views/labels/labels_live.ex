@@ -70,7 +70,7 @@ defmodule Bonfire.Label.Web.LabelsLive do
        canonical_url: canonical_url(category),
        name: name,
        page_title: name,
-       interaction_type: l("follow"),
+       interaction_type: "follow",
        subcategories: subcategories.edges,
        #  current_context: category,
        #  context_id: uid(category),
