@@ -147,7 +147,7 @@ defmodule Bonfire.Label.Labelling do
     # delete the Label
     Edges.delete_by_both(labeler, Label, labelled)
     # delete the label activity & feed entries
-    {:ok, Activities.delete_by_subject_verb_object(labeler, :label, labelled)}
+    Activities.delete_by_subject_verb_object(labeler, :label, labelled)
   end
 
   def unlabel(labeler, labelled, opts) when is_binary(labelled) do
