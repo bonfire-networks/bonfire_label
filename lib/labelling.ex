@@ -224,7 +224,10 @@ defmodule Bonfire.Label.Labelling do
            ActivityPub.Object.get_cached(
              pointer: e(label.edge, :object, nil) || e(label.edge, :object_id, nil)
            ) do
-      ActivityPub.unannounce(%{actor: labeler, object: object})
+      # only the labeler's own instance can undo their label, so an incoming `Undo` isn't sent back out as them; `== false` because `local` is nil on a tombstoned actor
+      if labeler.local == false,
+        do: {:ignore, "Not our label to undo, so nothing to federate"},
+        else: ActivityPub.unannounce(%{actor: labeler, object: object})
     end
   end
 
